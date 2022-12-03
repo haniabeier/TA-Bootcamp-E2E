@@ -12,13 +12,15 @@ Then("I close the promo banner if it appears", async() => {
     const closeButton = await $('div.modal-content > button.close');
     await expect(closeButton).toExist();
     await (closeButton).click();
-  } catch {}
+  } catch {
+    console.log("Promo banner did not appear.");
+  }
 });
 
 When('As a user I type the word {string} in the search bar', async(searchText) => {
   const searchBarSelector = 'div.header2021-search-box > input';
-  await $(searchBarSelector).click();
-  await browser.keys(searchText);
+  const searchBar = await $(searchBarSelector);
+  await searchBar.setValue(searchText);
 });
 
 Then('I click the search button', async() => {
